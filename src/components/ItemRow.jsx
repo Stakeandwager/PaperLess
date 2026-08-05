@@ -1,14 +1,6 @@
-import "../styles/forms.css";
-import "../styles/buttons.css";
-
-export default function ItemRow({
-  item,
-  updateItem,
-  removeItem,
-}) {
+export default function ItemRow({ item, updateItem, removeItem }) {
   return (
     <div className="item-row">
-
       <input
         className="item-input"
         type="text"
@@ -22,15 +14,13 @@ export default function ItemRow({
       <input
         className="item-input qty-input"
         type="number"
-        min="1"
+        min="0"
+        step="0.1"
+        inputMode="decimal"
         placeholder="Qty"
         value={item.quantity}
         onChange={(e) =>
-          updateItem(
-            item.id,
-            "quantity",
-            Number(e.target.value)
-          )
+          updateItem(item.id, "quantity", Number(e.target.value))
         }
       />
 
@@ -38,14 +28,11 @@ export default function ItemRow({
         className="item-input price-input"
         type="number"
         min="0"
+        inputMode="numeric"
         placeholder="Price (₦)"
         value={item.price}
         onChange={(e) =>
-          updateItem(
-            item.id,
-            "price",
-            Number(e.target.value)
-          )
+          updateItem(item.id, "price", Number(e.target.value))
         }
       />
 
@@ -57,7 +44,6 @@ export default function ItemRow({
       >
         ✕
       </button>
-
     </div>
   );
 }

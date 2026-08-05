@@ -1,64 +1,41 @@
-/* ===== layout.css — page structure ===== */
-
-.page {
-  min-height: 100vh;
-  background: #f5f7fb;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-  padding: 40px;
-  flex-wrap: wrap; /* cards stack on small screens instead of overflowing */
-}
+/* ===== layout.css — cards & page ===== */
 
 .card {
   background: #fff;
-  padding: 30px;
+  padding: 24px;
   border-radius: 16px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  width: 500px;
-  max-width: 100%; /* never wider than a phone screen */
+  width: 100%;        /* fill the phone screen */
+  max-width: 520px;   /* but never wider than this on desktop */
   box-sizing: border-box;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 40px;
-  background: #fff;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.brand {
-  font-size: 22px;
-  font-weight: 800;
-  color: #182420;
-}
-
-.brand-accent {
-  color: #1e6b4e;
-}
-
-.tagline {
-  margin: 0;
-  color: #75817b;
-  font-size: 14px;
-}
-
-/* phones: tighter padding, cards full-width */
 @media (max-width: 600px) {
-  .container {
-    padding: 16px;
-    gap: 16px;
-  }
-  .header {
-    padding: 14px 16px;
-  }
   .card {
-    padding: 20px;
+    padding: 18px;
+  }
+}
+
+/* printing: hide everything except the invoice preview card */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .card:has(.invoice-table),
+  .card:has(.invoice-table) * {
+    visibility: visible;
+  }
+
+  .card:has(.invoice-table) {
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  .action-row {
+    display: none !important;
   }
 }

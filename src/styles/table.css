@@ -1,4 +1,4 @@
-/* ===== table.css — the invoice preview table & totals ===== */
+/* ===== table.css — invoice table & totals ===== */
 
 .invoice-table {
   width: 100%;
@@ -26,11 +26,11 @@
   text-align: right;
 }
 
-.invoice-table .center {
+.invoice-table .center,
+.invoice-table th.center {
   text-align: center;
 }
 
-/* totals block */
 .total-row {
   display: flex;
   justify-content: space-between;

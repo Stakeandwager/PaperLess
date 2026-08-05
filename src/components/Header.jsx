@@ -5,9 +5,7 @@ export default function Header() {
         Paper<span style={styles.accent}>Less</span>
       </div>
 
-      <p style={styles.tagline}>
-        Professional invoices in under 30 seconds.
-      </p>
+      <p style={styles.tagline}>Invoices &amp; receipts in seconds.</p>
     </header>
   );
 }
@@ -17,14 +15,16 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "16px 40px",
+    flexWrap: "wrap",
+    gap: "4px",
+    padding: "14px 20px",
     background: "#fff",
     borderBottom: "1px solid #e5e7eb",
   },
 
   brand: {
     fontSize: "22px",
-    fontWeight: "800",
+    fontWeight: 800,
     color: "#182420",
   },
 
@@ -35,6 +35,6 @@ const styles = {
   tagline: {
     margin: 0,
     color: "#75817B",
-    fontSize: "14px",
+    fontSize: "13px",
   },
 };

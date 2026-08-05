@@ -1,35 +1,59 @@
-/* ===========================
-   Invoice Item Row
-=========================== */
+/* ===== forms.css — inputs, labels, item rows ===== */
 
-.item-row{
-    display:grid;
-    grid-template-columns: 3fr 90px 140px 45px;
-    gap:12px;
-    align-items:center;
-    margin-bottom:12px;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
 }
 
-.item-input{
-    width:100%;
-    padding:10px 12px;
-    border:1px solid #d6d6d6;
-    border-radius:8px;
-    font-size:15px;
-    outline:none;
-    transition:.2s;
-    box-sizing:border-box;
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #182420;
+  margin-bottom: 6px;
 }
 
-.item-input:focus{
-    border-color:#2563eb;
-    box-shadow:0 0 0 3px rgba(37,99,235,.15);
+.form-input,
+.item-input {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  padding: 11px 12px;
+  border: 1px solid #d7dbe0;
+  border-radius: 8px;
+  background: #fff;
 }
 
-.qty-input{
-    text-align:center;
+.form-input:focus,
+.item-input:focus {
+  outline: 2px solid #1e6b4e;
+  outline-offset: 0;
+  border-color: #1e6b4e;
 }
 
-.price-input{
-    text-align:right;
+/* one invoice item line: description | qty | price | remove */
+.item-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr 2fr auto;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.empty-note {
+  color: #75817b;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* phones: description gets its own full line so nothing is cut off */
+@media (max-width: 600px) {
+  .item-row {
+    grid-template-columns: 1fr 2fr auto;
+  }
+
+  .item-row .item-input:first-child {
+    grid-column: 1 / -1;
+  }
 }

@@ -5,11 +5,12 @@
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  padding: 10px 16px;
+  padding: 12px 16px;
   cursor: pointer;
+  min-height: 44px; /* comfortable thumb target on phones */
 }
 
-/* main action: create invoice, mark as paid */
+/* main action: mark as paid, copy for whatsapp */
 .btn-primary {
   background: #1e6b4e;
   color: #fff;
@@ -19,12 +20,7 @@
   background: #14503a;
 }
 
-.btn-primary:disabled {
-  background: #b9c6c0;
-  cursor: not-allowed;
-}
-
-/* secondary action: add item */
+/* secondary: add item, new invoice, print */
 .btn-ghost {
   background: none;
   color: #1e6b4e;
@@ -35,21 +31,44 @@
   background: #eef5f1;
 }
 
-/* destructive action: remove item */
-.btn-danger {
+/* undo action: mark as unpaid */
+.btn-warn {
   background: none;
-  color: #c6392f;
-  border: 1px solid #c6392f;
-  padding: 8px 12px;
+  color: #b07a1f;
+  border: 1px solid #b07a1f;
 }
 
-.btn-danger:hover {
+.btn-warn:hover {
+  background: #f7eeda;
+}
+
+/* the ✕ on item rows */
+.remove-btn {
+  font: inherit;
+  background: none;
+  border: 1px solid #d7dbe0;
+  color: #75817b;
+  border-radius: 8px;
+  padding: 10px 12px;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.remove-btn:hover {
+  color: #c6392f;
+  border-color: #c6392f;
   background: #fbe7e5;
 }
 
-/* full-width variant for big actions */
-.btn-block {
-  width: 100%;
-  padding: 13px;
-  font-size: 16px;
+/* paid/mark buttons side by side, wrapping on small screens */
+.action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.action-row .btn {
+  flex: 1;
+  min-width: 140px;
 }

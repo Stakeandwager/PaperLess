@@ -1,3 +1,5 @@
+import { useState } from "react";
+import Totals from "./Totals";
 import {
   lineTotal,
   subtotal,
@@ -6,16 +8,54 @@ import {
 } from "../utils/calculateTotal";
 
 export default function InvoicePreview({ invoice }) {
-  // math now comes from utils — nothing calculated by hand in here
-  const sub = subtotal(invoice.items);
-  const previousBalance = Number(invoice.previousBalance) || 0;
-  const total = grandTotal(invoice);
-
-  // status comes from data, not hardcoded
+  const [copied, setCopied] = useState(false);
   const isPaid = invoice.paid === true;
 
+  // only show rows the customer actually bought —
+  // empty typing rows stay in the form, not on the invoice
+  const realItems = invoice.items.filter(
+    (item) => item.description.trim() !== "" || Number(item.price) > 0
+  );
+
+  // the invoice as a WhatsApp message (* makes text bold in WhatsApp)
+  const buildWhatsAppText = () => {
+    const lines = [
+      `*${invoice.company}*`,
+      `${isPaid ? "RECEIPT" : "INVOICE"}${
+        invoice.date ? " — " + invoice.date : ""
+      }`,
+      `Customer: ${invoice.customer || "-"}`,
+      "",
+      ...realItems.map(
+        (item) =>
+          `${item.description} — ${item.quantity} x ${formatNaira(
+            item.price
+          )} = ${formatNaira(lineTotal(item))}`
+      ),
+      "",
+      `Subtotal: ${formatNaira(subtotal(invoice.items))}`,
+    ];
+
+    if (Number(invoice.previousBalance) > 0) {
+      lines.push(`Previous Balance: ${formatNaira(invoice.previousBalance)}`);
+    }
+
+    lines.push(`*Total: ${formatNaira(grandTotal(invoice))}*`);
+    lines.push(isPaid ? "Status: PAID ✓" : "Status: UNPAID");
+    lines.push("", "Thank you for your patronage.");
+
+    return lines.join("\n");
+  };
+
+  const copyForWhatsApp = () => {
+    navigator.clipboard.writeText(buildWhatsAppText()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   return (
-    <div style={styles.card}>
+    <div className="card">
       <h2>{isPaid ? "Receipt" : "Invoice Preview"}</h2>
 
       <hr />
@@ -23,7 +63,7 @@ export default function InvoicePreview({ invoice }) {
       <h3>{invoice.company}</h3>
 
       <p>
-        <strong>Customer:</strong> {invoice.customer}
+        <strong>Customer:</strong> {invoice.customer || "-"}
       </p>
 
       <p>
@@ -32,77 +72,45 @@ export default function InvoicePreview({ invoice }) {
 
       <hr />
 
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.thLeft}>Description</th>
-            <th>Qty</th>
-            <th style={styles.thRight}>Price</th>
-            <th style={styles.thRight}>Amount</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {invoice.items.map((item) => (
-            <tr key={item.id}>
-              <td>{item.description || "-"}</td>
-              <td style={styles.center}>{item.quantity}</td>
-              <td style={styles.right}>{formatNaira(item.price)}</td>
-              <td style={styles.right}>{formatNaira(lineTotal(item))}</td>
+      {realItems.length === 0 ? (
+        <p className="empty-note">No items yet — add one on the form.</p>
+      ) : (
+        <table className="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th className="center">Qty</th>
+              <th className="num">Price</th>
+              <th className="num">Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {realItems.map((item) => (
+              <tr key={item.id}>
+                <td>{item.description || "-"}</td>
+                <td className="center">{item.quantity}</td>
+                <td className="num">{formatNaira(item.price)}</td>
+                <td className="num">{formatNaira(lineTotal(item))}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <hr />
 
-      {/* math reads top-down so the customer can follow it */}
-      <p style={styles.totalRow}>
-        <span>Subtotal:</span>
-        <span>{formatNaira(sub)}</span>
-      </p>
+      <Totals invoice={invoice} />
 
-      {previousBalance > 0 && (
-        <p style={styles.totalRow}>
-          <span>Previous Balance:</span>
-          <span>{formatNaira(previousBalance)}</span>
-        </p>
-      )}
+      <div className="action-row">
+        <button className="btn btn-primary" onClick={copyForWhatsApp}>
+          {copied ? "Copied ✓" : "Copy for WhatsApp"}
+        </button>
 
-      <h3 style={styles.totalRow}>
-        <span>Total:</span>
-        <span>{formatNaira(total)}</span>
-      </h3>
-
-      <p style={{ color: isPaid ? "green" : "red", fontWeight: "bold" }}>
-        Status: {isPaid ? "PAID" : "UNPAID"}
-      </p>
+        <button className="btn btn-ghost" onClick={() => window.print()}>
+          Print / PDF
+        </button>
+      </div>
     </div>
   );
 }
-
-const styles = {
-  card: {
-    background: "#fff",
-    padding: "30px",
-    borderRadius: "16px",
-    boxShadow: "0 10px 25px rgba(0,0,0,.08)",
-    width: "500px",
-  },
-
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-  },
-
-  thLeft: { textAlign: "left" },
-  thRight: { textAlign: "right" },
-  center: { textAlign: "center" },
-  right: { textAlign: "right" },
-
-  totalRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    margin: "6px 0",
-  },
-};
