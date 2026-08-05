@@ -1,0 +1,204 @@
+/* ===== app.css — nav bar, chips, history, products ===== */
+
+.page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding-bottom: 84px; /* room for the fixed nav bar */
+}
+
+/* --- bottom navigation --- */
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  background: #fff;
+  border-top: 1px solid #e5e7eb;
+  z-index: 20;
+}
+
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 10px 4px 12px;
+  cursor: pointer;
+  color: #75817b;
+  min-height: 56px;
+}
+
+.nav-btn.active {
+  color: #1e6b4e;
+  font-weight: 700;
+}
+
+.nav-icon {
+  font-size: 20px;
+}
+
+.nav-label {
+  font-size: 12px;
+}
+
+/* --- product chips (tap to add) --- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.chip {
+  font: inherit;
+  font-weight: 600;
+  background: #fff;
+  color: #182420;
+  border: 1.5px solid #1e6b4e;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  min-height: 44px;
+}
+
+.chip em {
+  font-style: normal;
+  color: #1e6b4e;
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+.chip:active {
+  background: #eef5f1;
+}
+
+/* --- save button & confirmation message --- */
+.btn-save {
+  background: #182420;
+  color: #fff;
+}
+
+.btn-save:hover {
+  background: #000;
+}
+
+.saved-msg {
+  text-align: center;
+  color: #1e6b4e;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* --- history list --- */
+.history-row,
+.product-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  text-align: left;
+  background: #fff;
+  border: 1px solid #e4e2d8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+}
+
+.history-row {
+  cursor: pointer;
+}
+
+.history-row:hover {
+  border-color: #1e6b4e;
+}
+
+.history-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.history-name {
+  font-weight: 600;
+}
+
+.history-date {
+  font-size: 13px;
+  color: #75817b;
+}
+
+.history-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.history-total {
+  font-weight: 700;
+}
+
+.pill {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.pill-paid {
+  background: #e3f2ea;
+  color: #14503a;
+}
+
+.pill-unpaid {
+  background: #fbe7e5;
+  color: #c6392f;
+}
+
+/* --- history detail top bar --- */
+.detail-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 520px;
+}
+
+.detail-top .btn {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* --- product add row --- */
+.product-add {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 8px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .product-add {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* nav bar never prints */
+@media print {
+  .navbar {
+    display: none !important;
+  }
+
+  .page {
+    padding-bottom: 0;
+  }
+}

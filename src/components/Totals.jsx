@@ -8,7 +8,6 @@ export default function Totals({ invoice }) {
 
   return (
     <div>
-      {/* math reads top-down so the customer can follow it */}
       <p className="total-row">
         <span>Subtotal:</span>
         <span>{formatNaira(sub)}</span>

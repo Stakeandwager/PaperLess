@@ -12,7 +12,7 @@ export default function ItemRow({ item, updateItem, removeItem }) {
       />
 
       <input
-        className="item-input qty-input"
+        className="item-input"
         type="number"
         min="0"
         step="0.1"
@@ -25,7 +25,7 @@ export default function ItemRow({ item, updateItem, removeItem }) {
       />
 
       <input
-        className="item-input price-input"
+        className="item-input"
         type="number"
         min="0"
         inputMode="numeric"

@@ -7,24 +7,24 @@ import {
   formatNaira,
 } from "../utils/calculateTotal";
 
-export default function InvoicePreview({ invoice }) {
+export default function InvoicePreview({ invoice, storeName }) {
   const [copied, setCopied] = useState(false);
   const isPaid = invoice.paid === true;
 
-  // only show rows the customer actually bought —
-  // empty typing rows stay in the form, not on the invoice
   const realItems = invoice.items.filter(
     (item) => item.description.trim() !== "" || Number(item.price) > 0
   );
 
-  // the invoice as a WhatsApp message (* makes text bold in WhatsApp)
+  const title = isPaid ? "Receipt" : "Invoice";
+  const numberTag = invoice.number ? ` #${invoice.number}` : "";
+
   const buildWhatsAppText = () => {
     const lines = [
-      `*${invoice.company}*`,
-      `${isPaid ? "RECEIPT" : "INVOICE"}${
+      `*${storeName}*`,
+      `${title.toUpperCase()}${numberTag}${
         invoice.date ? " — " + invoice.date : ""
       }`,
-      `Customer: ${invoice.customer || "-"}`,
+      `Customer: ${invoice.customer || "Walk-in"}`,
       "",
       ...realItems.map(
         (item) =>
@@ -48,26 +48,31 @@ export default function InvoicePreview({ invoice }) {
   };
 
   const copyForWhatsApp = () => {
-    navigator.clipboard.writeText(buildWhatsAppText()).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    if (navigator.clipboard?.writeText) {
+      navigator.clipboard.writeText(buildWhatsAppText()).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    }
   };
 
   return (
     <div className="card">
-      <h2>{isPaid ? "Receipt" : "Invoice Preview"}</h2>
+      <h2>
+        {title}
+        {numberTag}
+      </h2>
 
       <hr />
 
-      <h3>{invoice.company}</h3>
+      <h3>{storeName}</h3>
 
       <p>
-        <strong>Customer:</strong> {invoice.customer || "-"}
+        <strong>Customer:</strong> {invoice.customer || "Walk-in"}
       </p>
 
       <p>
-        <strong>Date:</strong> {invoice.date || "Select a date"}
+        <strong>Date:</strong> {invoice.date || "-"}
       </p>
 
       <hr />
