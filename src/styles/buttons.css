@@ -1,0 +1,55 @@
+/* ===== buttons.css ===== */
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+/* main action: create invoice, mark as paid */
+.btn-primary {
+  background: #1e6b4e;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #14503a;
+}
+
+.btn-primary:disabled {
+  background: #b9c6c0;
+  cursor: not-allowed;
+}
+
+/* secondary action: add item */
+.btn-ghost {
+  background: none;
+  color: #1e6b4e;
+  border: 1px solid #1e6b4e;
+}
+
+.btn-ghost:hover {
+  background: #eef5f1;
+}
+
+/* destructive action: remove item */
+.btn-danger {
+  background: none;
+  color: #c6392f;
+  border: 1px solid #c6392f;
+  padding: 8px 12px;
+}
+
+.btn-danger:hover {
+  background: #fbe7e5;
+}
+
+/* full-width variant for big actions */
+.btn-block {
+  width: 100%;
+  padding: 13px;
+  font-size: 16px;
+}

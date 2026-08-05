@@ -1,0 +1,64 @@
+/* ===== layout.css — page structure ===== */
+
+.page {
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  padding: 40px;
+  flex-wrap: wrap; /* cards stack on small screens instead of overflowing */
+}
+
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  width: 500px;
+  max-width: 100%; /* never wider than a phone screen */
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.brand {
+  font-size: 22px;
+  font-weight: 800;
+  color: #182420;
+}
+
+.brand-accent {
+  color: #1e6b4e;
+}
+
+.tagline {
+  margin: 0;
+  color: #75817b;
+  font-size: 14px;
+}
+
+/* phones: tighter padding, cards full-width */
+@media (max-width: 600px) {
+  .container {
+    padding: 16px;
+    gap: 16px;
+  }
+  .header {
+    padding: 14px 16px;
+  }
+  .card {
+    padding: 20px;
+  }
+}

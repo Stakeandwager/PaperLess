@@ -1,0 +1,141 @@
+/* ===== Global ===== */
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f5f7fb;
+}
+
+/* ===== Home ===== */
+
+.page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    gap:30px;
+    padding:40px;
+}
+
+/* ===== Cards ===== */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    width:550px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.card h2{
+    margin-top:0;
+    text-align:center;
+}
+
+.card h3{
+    margin-top:25px;
+}
+
+/* ===== Inputs ===== */
+
+.group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:18px;
+}
+
+.group label{
+    margin-bottom:6px;
+    font-weight:600;
+}
+
+.group input{
+    padding:12px;
+    border:1px solid #d6d6d6;
+    border-radius:8px;
+    font-size:15px;
+    outline:none;
+}
+
+.group input:focus{
+    border-color:#2563eb;
+}
+
+/* ===== Item Row ===== */
+
+.item-row{
+    display:grid;
+    grid-template-columns:3fr 1fr 2fr auto;
+    gap:10px;
+    margin-bottom:12px;
+}
+
+.item-row input{
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+/* ===== Buttons ===== */
+
+.btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.25s;
+    font-size:15px;
+}
+
+.btn:hover{
+    background:#1d4ed8;
+}
+
+.btn-danger{
+    background:#dc2626;
+}
+
+.btn-danger:hover{
+    background:#b91c1c;
+}
+
+/* ===== Preview ===== */
+
+.preview-company{
+    text-align:center;
+    font-size:30px;
+    margin:25px 0;
+}
+
+.preview-status{
+    color:red;
+    text-align:center;
+    font-weight:bold;
+}
+
+.preview-total{
+    font-size:30px;
+    text-align:right;
+    margin-top:25px;
+}
+
+/* ===== Table ===== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th{
+    text-align:left;
+    border-bottom:2px solid #ddd;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
